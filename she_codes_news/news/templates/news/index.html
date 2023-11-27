@@ -1,0 +1,21 @@
+    <h2>Latest News</h2>
+
+    <div id="latest-stories">
+        {% if latest_stories %}
+            {% for story in latest_stories %}
+                <p>{{ story.title }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No stories are available.</p>
+        {% endif %}
+    </div>
+
+    <div id="all-stories">
+        {% if latest_stories %}
+            {% for story in all_stories %}
+                <p>{{ story.title }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No stories are available.</p>
+        {% endif %}
+    </div>
