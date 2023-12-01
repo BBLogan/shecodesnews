@@ -26,3 +26,10 @@ class AddStoryView(generic.CreateView):
     context_object_name = 'storyform'
     template_name = 'news/createStory.html'
     success_url = reverse_lazy('news:index')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+class Meta:
+    ordering = ['-pub_date']

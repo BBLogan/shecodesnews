@@ -1,3 +1,4 @@
+# she_codes_news/urls.py
 """she_codes_news URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -19,4 +20,6 @@ from django.urls import include, path
 urlpatterns = [
     path('news/', include ('news.urls')),
     path('admin/', admin.site.urls),
+    path('users/', include('users.urls')),
+    path('users/', include('django.contrib.auth.urls')),
 ]
