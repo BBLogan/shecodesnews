@@ -1,5 +1,7 @@
+from typing import Any
 from django.views import generic
 from django.urls import reverse_lazy
+
 from .models import NewsStory
 from .forms import StoryForm
 
@@ -21,6 +23,10 @@ class StoryView(generic.DetailView):
     template_name = 'news/story.html'
     context_object_name = 'story'
 
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+        return 
+
 class AddStoryView(generic.CreateView):
     form_class = StoryForm
     context_object_name = 'storyform'
@@ -30,3 +36,11 @@ class AddStoryView(generic.CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class AddCommentView(generic.CreateView):
+    form_class = CommentForm
+
+    def get(self, request, *args, **kwargs):
+        return redirect("newstory", pk=self.kwargs.get("pk"))
+    
+    
