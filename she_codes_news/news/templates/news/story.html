@@ -1,4 +1,5 @@
 <!-- news/templates/news/story.html -->
+
 {% extends "base.html" %}
 {% load static %}
 {% block stylessheets %}
@@ -7,6 +8,8 @@
 
 {% block content %}
 
+<main>
+<!--- Story Block -->    
 <div id="story-wrapper">
     <h2>{{ story.title }}</h2>
     <h4>{{ story.author }}</h4>
@@ -18,4 +21,6 @@
         {{ story.content|linebreaks }}
     </div>
 </div>
+
+</main>
 {% endblock %}

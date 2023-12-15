@@ -1,0 +1,48 @@
+under news > URLS
+Need to build the following views: 
+ExploreView
+EditStoryView
+DeleteStoryView
+DeleteStoryDoneView
+
+    path('explore-all-stories/', views.ExploreView.as_view(), name='allStories'),
+
+    path('story/<int:pk>/edit/', views.EditStoryView.as_view(), name='editStory'),
+    
+    path('story/<int:pk>/delete/', views.DeleteStoryView.as_view(), name='deleteStory'),
+    path('delete-story-done/', views.DeleteStoryDoneView, name='deleteStory_done'),
+
+plus figure out if you need to keep or delete the following code in the news > urls.py file:
+
+    # demo - different ways to implement a list of author stories
+    path('author_1/<str:username>', views.AuthorStoryListView.as_view(), name='authorstorylist'),
+    
+    path('author_2/<str:username>', views.AuthorDetailView.as_view(), name='authordetail'),
+    # path('add-story/', views.AddStoryView.as_view(), name='newStory'),
+    # path('/redirect/', views.AddComment.as_view(), name='redirect_view')
+
+
+
+under news > forms
+find the author attributes and add to this block of code (line 49)
+# Story Block
+class StoryForm(ModelForm):
+    class Meta: 
+        model = NewsStory
+        fields = ['pub_date', 'title', 'image_field', 'content', 'author']
+        labels = {
+            'title': ('Story Title'),
+            'pub_date': ('Date Published'),
+            'image_fields': ('Image URL'),
+            'content': ('Write a Story'),
+            'author': ('Written By')
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class':'form-controls'},),
+            'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
+                    'class':'form-control',
+                    'placeholder':'Select a date',
+                    'type':'datetime-local', }),
+            'image_field':forms.URLInput(attrs={'class':'form-control'},),
+            # 'author': what attributes am i adding in?
+        }
