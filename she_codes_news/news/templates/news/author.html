@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
+    {% endblock %}
+
+{% block content %}
+<br>
+
+<h2> Stories for {{ author.username }}</h2>
+    <div id="latest-stories">
+
+            {% for story in author.newsstory_set.all %}
+                {% include './storyCard.html' with story=story postion=forloop.counter %}
+            {% endfor %}
+        
+    </div>
+
+{% endblock %}
