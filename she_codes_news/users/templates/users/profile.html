@@ -1,0 +1,24 @@
+<!-- Vistor = individual browsing website but with no account &/ not logged in -->
+<!-- User = visitor with an account & who's logged into the site -->
+
+{% extends "base.html" %}
+{% load static %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<br>
+<main>
+
+    <button><a href="{% url 'news:allStories' %}">Explore All Stories</a></button>
+
+    <!-- Hero Block -->
+    <div class="hero">
+        {% if request.user.is_authenticated %}
+        
+            <!-- Load for Users / Logged In -->
+            {% if request.user.id == user.id %}
+
+            
+    </div>

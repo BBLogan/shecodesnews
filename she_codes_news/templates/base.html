@@ -1,9 +1,10 @@
 <!-- templates/base.html -->
+
 {% load static %}
+<!doctype html>
+<html lang="en">
 
-<!-- <!doctype html> -->
-
-<!-- <html lang="en"> -->
+<!-- Head Block  -->
     <head>
         <meta charset="utf-8">
         <title>She Codes News</title>
@@ -16,17 +17,18 @@
     </head>
 
     <body>
+        <!-- Header Block  -->
         <header>
             <div id="header-text">
                 <a id="header-link" href="{% url 'news:index' %}">
                     <h1>She {Codes} News</h1>
                 </a>
             </div>
-            <!-- include nav here -->
+            <!-- Navigation Block  -->
             {% include './nav.html' %}
         </header>
 
-        <!-- content blocks here -->
+        <!-- Extending Globally -->
         {% block content %} {% endblock %}
     </body>
-<!-- </html> -->
+</html>

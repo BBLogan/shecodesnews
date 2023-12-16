@@ -44,6 +44,7 @@ class CommentForm(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['content'].label = ""
 
+
 # class CommentForm(forms.Form):
 #     name = forms.CharField(required=True)
 #     email = forms.EmailField(required=True)

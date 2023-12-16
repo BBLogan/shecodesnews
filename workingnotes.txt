@@ -1,3 +1,6 @@
+** DOUBLE CHECK ALL IMAGES AND IMAGE LINKS! **
+
+
 under news > URLS
 Need to build the following views: 
 ExploreView
@@ -46,3 +49,45 @@ class StoryForm(ModelForm):
             'image_field':forms.URLInput(attrs={'class':'form-control'},),
             # 'author': what attributes am i adding in?
         }
+
+
+news > template > index
+move all-stories block to Explore Stories Page? 
+    <div id="all-stories">
+        {% if latest_stories %}
+            {% for story in all_stories %}
+                <!-- <p>{{ story.title }}</p> -->
+                {% include "./storyCard.html" with story=story %}
+            {% endfor %}
+        {% else %}
+            <p>No stories are available.</p>
+        {% endif %}
+    </div>
+Also double check the Hero / Write a New Story block (index.html)
+    <!-- Write a New Story -->
+    <a href="{% url 'news:newStory' %}">Write New Story</a>
+    <div id="new-story">
+        {% if request.user.is_authenticated %}
+
+    </div>
+
+
+News > templates > exploreStories
+Remember to find divider icon & change names in img blocks like:
+divider-icon
+    <!-- All Authors Block -->
+    <div id="all-authors">
+        {%% if story_authors }
+        <img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
+            {% for author in story_authors %}
+                <a href="{% url 'users:profile' author.id %}"> {{ author }} </a><img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
+            {% endif %}
+                <p>No authors available</p>
+            {% endif %}
+    </div>
+
+
+news > templates > editStory
+Clean up additional code - remove all struck out pieces BUT double check before doing
+after the {% endblock %} line on row 33
+AND DOUBLE CHECK WHAT PART OF THE ASSIGNMENT IS FULFILLED BY EDITSTORY.HTML

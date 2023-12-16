@@ -9,6 +9,7 @@ class NewsStory(models.Model):
     Connected to user_model to allocate stories to logged in users
     Returns - Story Titel with __str__ override'''
     title = models.CharField(max_length=200)
+    
     # author = models.CharField(max_length=200)
     author = models.ForeignKey(USER, on_delete=models.CASCADE)
     pub_date = models.DateTimeField()

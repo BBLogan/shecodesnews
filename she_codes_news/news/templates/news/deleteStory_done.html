@@ -1,0 +1,27 @@
+<!-- Vistor = individual browsing website but with no account &/ not logged in -->
+<!-- User = visitor with an account & who's logged into the site -->
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main> 
+    <!-- Confirm the Deletion -->
+    <div class="delete-confirm">
+        <!-- Or is the above delete-DONE? -->
+        <h2>You've successfully deleted your story!</h2>
+
+        <!-- Buttons Block -->
+        <!-- Load only for Current Logged in User -->
+        <button><a href="{% url 'news:index' %}">Return Home</a></button>
+        <button><a href="{% url 'news:allStories' %}">Explore All Stories</a></button>
+        <button><a href="{% url 'news:profile request.user.id ' %}">View Your Stories</a></button>
+    </div>
+
+</main>
+{% endblock %}
+
+
+<!-- Assignemnt Notes -->
+<!-- This page is part of the news setup and satisfies the following:
+[ ] Part 1: 
