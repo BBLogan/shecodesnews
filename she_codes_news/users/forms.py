@@ -14,3 +14,5 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email']
+
+# If needed could add 'first_name', 'last_name' to the fields of CustomUser model and would ned to include it in both the CustomUserCreationForm and CustomUserChangeForm fields list e.g., fields = ['username', 'email', 'first_name', 'last_name'] 

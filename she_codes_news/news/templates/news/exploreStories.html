@@ -1,56 +1,56 @@
 <!-- Vistor = individual browsing website but with no account &/ not logged in -->
 <!-- User = visitor with an account & who's logged into the site -->
 
-{% extends "base.html" %}
-{% load static %}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
-{% endblock %}
+    {% extends "base.html" %}
+    {% load static %}
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
+    {% endblock %}
 
-{% block content %}
-<br>
-<main>
+    <br>
+    <main>
 
-<!-- Hero Exploration Block -->
-<div class="hero">
-    <h2>Explore All Stories</h2>
+    <!-- Hero Exploration Block -->
+    <div class="hero">
+        <h2>Explore All Stories</h2>
 
-    <!-- All Authors Block -->
-    <div id="all-authors">
-        {%% if story_authors }
-        <img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
-            {% for author in story_authors %}
-                <a href="{% url 'users:profile' author.id %}"> {{ author }} </a><img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
+        <!-- All Authors Block -->
+        <div id="all-authors">
+            {% if story_authors %}
+                <img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
+                {% for author in story_authors %}
+                    <a href="{% url 'users:profile' author.id %}"> {{ author }} </a><img class="divider-icon" src="{% static '/images/bullet_purple.png' %}" />
+                {% endfor %}
+            {% else %}
+                <p>No Authors available</p>
             {% endif %}
-                <p>No authors available</p>
+        </div>
+       
+        <!-- Buttons Block -->
+        <div class="hero-buttons">
+            {% if request.user.is_authenticated %}
+            <!-- Load for Users / Logged In -->
+            <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
+            {% else %}
+            <!-- Load only for Visitors / Not Logged In -->
+            <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
             {% endif %}
+        </div>
     </div>
-    
-    <!-- Buttons Block -->
-    <div class="hero-buttons">
-        {% if request.user.is_authenticated %}
-        <!-- Load for Users / Logged In -->
-        <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
+
+    <!-- All Stories Block -->
+    <div id="all-stories">
+        {% if latest_stories %}
+            {% for story in all_stories %}
+                {% include "./storyCard.html" with story=story %}
+            {% endfor %}
         {% else %}
-        <!-- Load only for Visitors / Not Logged In -->
-        <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
-        {% end if %}
+            <p>No stories are available.</p>
+        {% endif %}
     </div>
-</div>
 
-<!-- All Stories Block -->
-<div id="all-stories">
-    {% if all_stories %}
-        {% for story in all_stories %}
-            {% include "./storyCard.html" with story=story %}
-        {% endfor %}
-    {% else %}
-        <p>No stories are available.</p>
-    {% endif %}
-</div>
+    </main>
 
-</main>
-{% endblock %}
 
 
 <!-- Assignemnt Notes -->
@@ -58,4 +58,4 @@
 [ ] Part 1: Order the stories by date
 [ ] Part 2: View stories by a particular author
 [ ] Part 2: Show / Hide the relevant information & buttons based on whether a user is logged in or out
-[ ] Part 2: Enable / Disbale the relevant features based on whether the user is logged in or out -->
+[ ] Part 2: Enable / Disable the relevant features based on whether the user is logged in or out -->

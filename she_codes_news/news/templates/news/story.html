@@ -15,11 +15,13 @@
     <div id="story-wrapper">
         <h2>{{ story.title }}</h2>
         <h4>{{ story.author }}</h4>
+
         <div id="story-content">
+            {% if story.image %}
             <img src="{{ story.image }}"> 
-                {% else %}
+            {% else %}
             <img src="{% static '/news/images/placeholder-5.jpg' %}">
-                {% endif %}
+            {% endif %}
             {{ story.content|linebreaks }}
         </div>
 
@@ -28,36 +30,42 @@
     {% if story.comments.all %}
     <ul>
         {% for comment in story.comments.all %}
-            <li><a class="author_links" href="{% url 'users:profile' comment.author.id %}"> {{ comment.author.username }}</a> [{{comment.created_at|date:'d M y @ gi a' }}] {{ comment.content}}</li>
+            <li>
+                {% if comment.author %}
+                    <a class="author_links" href="{% url 'users:profile' comment.author.id %}"> {{ comment.author.username }}</a> 
+                {% else %}
+                    Anonymous
+                {% endif%}
+                [{{comment.created_at|date:'d M y @ gi a' }}] {{ comment.content}}</li>
         {% endfor %}
     </ul>
     {% else %}
         <p>No comments to view</p>
     {% endif %}
 
-<!-- Add New Comments -->
-<div id="commnent-wrapper">
-    {% if request.user.is_authenticated %}
-    
-    <!-- Load for Logged in Users-->
-    <form method="POST" action="{{ form_action }}">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <!-- Add New Comments -->
+    <div id="comment-wrapper">
+        {% if request.user.is_authenticated %}
+        
+        <!-- Load for Logged in Users-->
+        <form method="POST" action="{{ form_action }}">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-            <!-- Comment Submission Button -->
-            <button type="submit">Add Comment</button>
-            {% if request.user == story.author %}
-            <button><a href="{% url 'news:editStory' story.id %}">Edit your Story</a></button>
-            <button><a href="{% url 'news:deleteStory' story.id %}">Delete your Story</a></button>
-        {% else %}
-            
-        <!-- No Loading of buttons for Visitors -->
+                <!-- Comment Submission Button -->
+                <button type="submit">Add Comment</button>
+                {% if request.user == story.author %}
+                <button><a href="{% url 'news:editStory' story.id %}">Edit your Story</a></button>
+                <button><a href="{% url 'news:deleteStory' story.id %}">Delete your Story</a></button>
+            {% else %}
+                
+            <!-- No Loading of buttons for Visitors -->
+                {% endif %}
+        </form>
+                
+            <!-- But Load Login for Visitors to Login -->
+                <button><a href="{% url 'login' %}">Login to add a comment</a></button>
             {% endif %}
-    </form>
-            
-        <!-- But Load Login for Visitors to Login -->
-            <button><a href="{% url 'login' %}">Login to add a comment</a></button>
-        {% endif %}
     </div>
 </div>
 
@@ -70,4 +78,4 @@
 [ ] Part 1: Submit comments
 [ ] Part 1: View comments
 [ ] Part 2: Show / Hide the relevant information and buttons based on whether the user is logged in/out
-[ ] Part 2: Enable / Disable the releavnt features based on whether the use is logged in/out
+[ ] Part 2: Enable / Disable the relevant features based on whether the use is logged in/out

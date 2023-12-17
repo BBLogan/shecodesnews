@@ -7,16 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
 {% endblock %}
 
-{% block content %}
 <br>
 <main>
-
-    <!-- Write a New Story
-    <a href="{% url 'news:newStory' %}">Write New Story</a>
-    <div id="new-story">
-        {% if request.user.is_authenticated %}
-
-    </div> -->
 
     <!-- Hero Block -->
     <div class="hero">
@@ -25,14 +17,12 @@
         <!-- Buttons Block -->
         <div class="hero-buttons">
             {% if request.user.is_authenticated %}
-            
-            <!-- Load for Users / Logged In -->
-            <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
+                <!-- Load for Users / Logged In -->
+                <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
             {% else %}
-            
-            <!-- Load only for Visitors / Not Logged In -->
-            <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
-            {% end if %}
+                <!-- Load only for Visitors / Not Logged In -->
+                <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
+            {% endif %}
             <button><a href="{% url 'news:allStories' %}">Explore All Stories</a></button>
         </div>
     </div>
@@ -49,8 +39,11 @@
         {% endif %}
     </div>
 
-    <!-- All Stories Block -->
-    <div id="all-stories">
+</main>
+
+
+    <!-- All Stories Block move to Explore Page?-->
+    <!-- <div id="all-stories">
         {% if latest_stories %}
             {% for story in all_stories %}
                 {% include "./storyCard.html" with story=story %}
@@ -58,11 +51,7 @@
         {% else %}
             <p>No stories are available.</p>
         {% endif %}
-    </div>
-
-</main>
-{% endblock %}
-
+    </div> -->
 
 <!-- Assignemnt Notes -->
 <!-- This page is part of the news setup and satisfies the following:

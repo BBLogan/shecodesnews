@@ -1,11 +1,7 @@
 # news/forms.py
 from django import forms
 from django.forms import ModelForm
-# from .forms import StoryForm, CommentForm
 from .models import NewsStory, Comment
-from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-from django.http import request
 
 # Story Block
 class StoryForm(ModelForm):
@@ -15,18 +11,18 @@ class StoryForm(ModelForm):
         labels = {
             'title': ('Story Title'),
             'pub_date': ('Date Published'),
-            'image_fields': ('Image URL'),
+            'image_field': ('Image URL'),
             'content': ('Write a Story'),
             'author': ('Written By')
         }
         widgets = {
-            'title': forms.TextInput(attrs={'class':'form-controls'},),
+            'title': forms.TextInput(attrs={'class':'form-controls'}),
             'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
                     'class':'form-control',
                     'placeholder':'Select a date',
-                    'type':'datetime-local', }),
+                    'type':'datetime-local', 
+                    }),
             'image_field':forms.URLInput(attrs={'class':'form-control'},),
-            # 'author': 
         }
 
 # Comment Block
@@ -35,16 +31,13 @@ class CommentForm(ModelForm):
         model = Comment
         fields = ['content']
         widgets = {
-            'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
-                    'class':'form-control',
-                    'placeholder':'Select a date',
-                    'type':'datetime-local'}),
-            # 'author': what attributes am i adding in?
+            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your comment here'})
         }
 
     def __init__(self, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['content'].label = ""
+
 
 
 # class CommentForm(forms.Form):
@@ -73,3 +66,9 @@ class CommentForm(ModelForm):
     
 #     def success(request):
 #         return HttpResponse('Success!')
+
+        # 'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
+        #         'class':'form-control',
+        #         'placeholder':'Select a date',
+        #         'type':'datetime-local'}),
+        # # 'author': what attributes am i adding in?

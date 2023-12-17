@@ -1,20 +1,11 @@
-from typing import Any
-from django.urls import reverse_lazy
-
-from django.views import generic
+from django.urls import reverse_lazy, path, include
 from django.views.generic.edit import CreateView
-
+from django.views import generic
 from .models import CustomUser
-from news.models import NewsStory
-
 from .forms import CustomUserCreationForm
-
+from news.models import NewsStory
 from django.shortcuts import render, redirect
-
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.decorators import login_required
-from django.http import request
-from django.contrib.auth.forms import PasswordChangeForm
 
 
 class CreateAccountView(CreateView):
@@ -33,24 +24,21 @@ class AccountView(generic.DetailView):
         return context
 
 def ChangePasswordDoneView(request):
-    return render(request, 'users/changePassword_done.html', {})
+    return render(request, 'users/changePassword_done.html')
 
 def ChangePasswordView(request):
     if request.method == 'POST':
         form = auth_views.PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
-            return redirect('users:changePassword_done.html')
+            return redirect('users:changePassword_done')
     else:
         form = auth_views.PasswordChangeForm(request.user)
     return render(request, 'users/changePassword.html', {'form': form})
 
-
-# Which type of Django generic when?
-    # generic.ListView for seeing all (or a subset) of a data model
-    # generic.DetailView for seeing one specific item from a model
-# Now the edit versions:
-    # generic.edit.CreateView for creating a new item in a model
-    # generic.edit.UpdateView for modifying one specific item from a model
-    # generic.edit.DeleteView for removing one specific item from a model
-
+# In Django generics, use:
+# - generic.ListView for displaying a list of items (e.g., a list of news stories)
+# - generic.DetailView for showing details of a specific item (e.g., a detailed view of a user profile)
+# - generic.edit.CreateView for creating a new item (e.g., user account registration)
+# - generic.edit.UpdateView for modifying an existing item (e.g., updating user profile information)
+# - generic.edit.DeleteView for removing an item (e.g., deleting a user account)
