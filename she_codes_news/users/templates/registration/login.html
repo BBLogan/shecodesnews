@@ -1,11 +1,32 @@
 <!-- users/templates/registration/login.html -->
+<!-- Vistor = individual browsing website but with no account &/ not logged in -->
+<!-- User = visitor with an account & who's logged into the site -->
+
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+<br>
+<main>
+
+    <!-- Login Authentication? -->
+    {% if request.user.is_authenticated %}
+        <meta http-equiv="refresh" content="0; URL={% url 'users:profile' request.user.id %}" />
+    {% else %}
+        <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                <table class="form_table">
+                    {{ form.as_table }}
+                </table>
+                <br>
+                <button type="submit">Login</button>
+                <button><a href="{% url 'users:createAccount' %}">Create a Profile</a></button>
+            </form>
+    {% endif %}
+
+</main>
 {% endblock %}
+
+<!-- Assignemnt Notes -->
+<!-- This page is part of the news setup and additional features. It satisfies the following:
+[ ] Part 1: 

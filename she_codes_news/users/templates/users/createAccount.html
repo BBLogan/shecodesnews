@@ -1,11 +1,25 @@
 <!-- users/templates/users/createAccount.html -->
-{% extends 'base.html' %}
+<!-- Vistor = individual browsing website but with no account &/ not logged in -->
+<!-- User = visitor with an account & who's logged into the site -->
 
+{% extends 'base.html' %}
 {% block content %}
+<br>
+<main>
+    
+    <!-- Creating Account Block -->
     <h2>Create Account</h2>
-    <form method="post">
+    <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button typer="submit">Create Account</button>
+        <table class="form_table">
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="submit" class="submit_button">
     </form>
+
+</main>
 {% endblock %}
+
+<!-- Assignemnt Notes -->
+<!-- This page is part of the news setup and additional features. It satisfies the following:
+[ ] Part 1: 

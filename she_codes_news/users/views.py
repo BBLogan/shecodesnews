@@ -1,8 +1,8 @@
 from typing import Any
 from django.urls import reverse_lazy
 
-from django.views.generic.edit import CreateView
 from django.views import generic
+from django.views.generic.edit import CreateView
 
 from .models import CustomUser
 from news.models import NewsStory
@@ -12,6 +12,8 @@ from .forms import CustomUserCreationForm
 from django.shortcuts import render, redirect
 
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.http import request
 from django.contrib.auth.forms import PasswordChangeForm
 
 
@@ -29,19 +31,19 @@ class AccountView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['user_stories'] = NewsStory.objects.filter(author=self.kwargs['pk'])
         return context
-    
-    def ChangePasswordDoneView(request):
-        return render(request, 'users/changePassword_done.html', {})
-    
-    def ChangePasswordView(request):
-        if request.method == 'POST':
-            form = auth_views.PasswordChangeForm(request.user, request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('users:changePassword_done')
-        else:
-            form = auth_views.PasswordChangeForm(request.user)
-        return render(request, 'users/changePassword.html', {'form': form})
+
+def ChangePasswordDoneView(request):
+    return render(request, 'users/changePassword_done.html', {})
+
+def ChangePasswordView(request):
+    if request.method == 'POST':
+        form = auth_views.PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users:changePassword_done.html')
+    else:
+        form = auth_views.PasswordChangeForm(request.user)
+    return render(request, 'users/changePassword.html', {'form': form})
 
 
 # Which type of Django generic when?

@@ -15,10 +15,52 @@
 
     <!-- Hero Block -->
     <div class="hero">
+        <!-- Load only for Users / Logged In -->
         {% if request.user.is_authenticated %}
         
-            <!-- Load for Users / Logged In -->
+            <!-- Load only if the Profile User is also the Logged in User -->
             {% if request.user.id == user.id %}
+            <h2>Welcome back {{ user.name }}!</h2>
 
-            
+            <!-- User Details / Profile Block -->
+            <table id="profile_table">
+                <tr>
+                    <td><b>Your Email</b></td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td><b>Your Username</b></td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Your Password</td>
+                    <td><button><a href="{% url 'users:changePassword' %}">Change</a></button></td>
+                </tr>
+            </table>
     </div>
+
+            <!-- User / Author Stories Block -->
+            <h3>Your Stories</h3>
+        {% else %}
+            <h2>View {{ user.username }}'s Stories</h2>
+        {% endif %}
+    {% else %}
+        <h2>View {{ user.username }}'s Stories</h2>
+        {% endif %}
+    <div id="user-stories">
+        {% if user_stories %}
+            {% for story in user_stories %}
+                {% inlcude "news/storyCard.html" with story=story postion+forloop.counter %}
+            {% endfor %}
+        {% else %}
+            <p>No stories are available</p>
+        {% endif %}
+    </div>
+
+</main>
+{% endblock %}
+
+
+<!-- Assignemnt Notes -->
+<!-- This page is part of the news setup and additional features. It satisfies the following:
+[ ] Part 1: 

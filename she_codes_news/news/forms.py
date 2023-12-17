@@ -1,10 +1,11 @@
 # news/forms.py
 from django import forms
 from django.forms import ModelForm
+# from .forms import StoryForm, CommentForm
 from .models import NewsStory, Comment
-
-# from django.http import HttpResponseRedirect
-# from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.http import request
 
 # Story Block
 class StoryForm(ModelForm):
@@ -25,23 +26,24 @@ class StoryForm(ModelForm):
                     'placeholder':'Select a date',
                     'type':'datetime-local', }),
             'image_field':forms.URLInput(attrs={'class':'form-control'},),
-            # 'author': what attributes am i adding in?
+            # 'author': 
         }
 
 # Comment Block
 class CommentForm(ModelForm):
     class Meta: 
         model = Comment
-        fields = ['pub_date', 'author', 'content']
+        fields = ['content']
         widgets = {
             'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
                     'class':'form-control',
                     'placeholder':'Select a date',
-                    'type':'datetime-local'},),
+                    'type':'datetime-local'}),
             # 'author': what attributes am i adding in?
         }
+
     def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
+        super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['content'].label = ""
 
 

@@ -1,16 +1,16 @@
 from typing import Any
 from django.views import generic
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
+from .forms import NewsStory, StoryForm, CommentForm
 from news.models import NewsStory
-from django.forms import StoryForm, CommentForm
-from django.shortcuts import get_object_or_404, redirect, render
 from users.models import CustomUser
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import request
+from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
 
-# from typing import Any
-# from django.db.models.query import QuerySet
-# from django.forms.models import BaseModelForm
-# from django.http import HttpResponse
 
 # Index News Block
 class IndexView(generic.ListView):
@@ -31,14 +31,13 @@ class IndexView(generic.ListView):
         context['all_stories'] = stories
         return context
 
-#  Exploring All Stories Block
+# Exploring All Stories Block
 class ExploreView(generic.ListView):
     model = CustomUser
     template_name = 'news/exploreStories.html'
 
     def get_queryset(self):
-        '''Return all news stories
-        '''
+        '''Return all news stories'''
         return NewsStory.objects.all()
 
     def get_queryset(self):
@@ -53,7 +52,7 @@ class ExploreView(generic.ListView):
         context['story_authors'] = CustomUser.objects.all()
         return context
 
-#  Story Block with Single Story View
+# Story Block with Single Story View
 class StoryView(generic.DetailView):
     model = NewsStory
     template_name = 'news/story.html'
@@ -69,7 +68,7 @@ class StoryView(generic.DetailView):
 # Add Story Block
 class AddStoryView(generic.CreateView):
     form_class = StoryForm
-    context_object_name = 'storyform'
+    context_object_name = 'StoryForm'
     template_name = 'news/createStory.html'
     success_url = reverse_lazy('news:index')
 
@@ -106,12 +105,12 @@ class AddCommentView(generic.CreateView):
     #     return reverse_lazy('news:story', kwargs={'pk':self.kwargs.get("pk")})
 
 # Edit Story Block
-class EditStoryView(generic.Update.View):
+class EditStoryView(generic.UpdateView):
     form_class = StoryForm
     model = NewsStory
     context_object_name = 'story'
     template_name = 'news/editStory.html'
-    success_url = reverse_lazy("news:newsStory")
+    success_url = reverse_lazy("news:index")
 
     def form_valid(self, form):
         '''Saves the form & redirects to the success URL'''
@@ -126,17 +125,21 @@ class EditStoryView(generic.Update.View):
         return reverse_lazy("news:story", kwargs={"pk":pk})
 
 # Delete Story Block
-class DeleteStoryView(generic.DeleteView):
+class DeleteStoryView(TemplateView):
     model = NewsStory
     context_object_name = 'story'
     template_name = 'news/deleteStory.html'
     success_url = reverse_lazy('news:deleteStory_done')
 
-    def DeleteStoryDoneView(request):
-        '''Redirect to the deleted success page'''
-        return render(request, 'news/deleteStory_done.html', {})
+class DeleteStoryDoneView(TemplateView):
+    '''Redirect to the deleted success page'''
+    model = NewsStory
+    template_name = '/news/deleteStory_done.html'
+        # return render(request, 'news/deleteStory_done.html', {})
 
-# Logged in Author Story List View
+
+# # review the below before submission
+# # Logged in Author Story List View
 class AuthorStoryListView(generic.ListView):
     #  /author_1
     model = CustomUser
