@@ -50,7 +50,7 @@
     <div id="user-stories">
         {% if user_stories %}
             {% for story in user_stories %}
-                {% include "news/storyCard.html" with story=story postion+forloop.counter %}
+                {% include "news/storyCard.html" with story=story position=forloop.counter %}
             {% endfor %}
         {% else %}
             <p>No stories are available</p>

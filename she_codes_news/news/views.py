@@ -1,19 +1,19 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+# class based views 
 from django.views import generic
+from django.urls import reverse_lazy
+from .models import NewsStory
 from .forms import StoryForm, CommentForm
-from news.models import NewsStory
-
+# ^ class based views ^
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from users.models import CustomUser
 from django.db.models.query import QuerySet
-
+ 
 # Index News Block
 class IndexView(generic.ListView):
     template_name = 'news/index.html'
-    context_object_name = "all_stories"
 
     def get_queryset(self):
         '''
@@ -74,11 +74,11 @@ class StoryView(generic.DetailView):
         return context
 
 # Add Story Block - login_required
-@login_required
-class AddStoryView(generic.CreateView):
+class AddStoryView(CreateView):
     form_class = StoryForm
     context_object_name = 'StoryForm'
     template_name = 'news/createStory.html'
+    fields = ['title', 'content']
     success_url = reverse_lazy('news:index')
 
     def form_valid(self, form):
@@ -90,8 +90,7 @@ class AddStoryView(generic.CreateView):
         return super().form_valid(form)
 
 # Add a Comment Block - login_required
-@login_required
-class AddCommentView(generic.CreateView):
+class AddCommentView(CreateView):
     form_class = CommentForm
     success_url = reverse_lazy("news:newsStory")
     template_name = 'news/createComment.html'
@@ -117,7 +116,6 @@ class AddCommentView(generic.CreateView):
         return reverse_lazy("news:story", kwargs={"pk":pk})
 
 # Edit Story Block - login_required
-@login_required
 class EditStoryView(generic.UpdateView):
     form_class = StoryForm
     model = NewsStory
@@ -142,7 +140,6 @@ class EditStoryView(generic.UpdateView):
         return reverse_lazy("news:story", kwargs={"pk":pk})
 
 # Delete Story Block - login_required
-@login_required
 class DeleteStoryView(DeleteView):
     model = NewsStory
     context_object_name = 'story'

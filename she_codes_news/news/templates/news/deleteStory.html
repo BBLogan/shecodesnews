@@ -9,7 +9,7 @@
 
 {% block content %}
 <main>
-    <!-- Deleteing the Story -->
+    <!-- Deleting the Story -->
     {% if request.user.is_authenticated %}
         <!-- Load for Users / Logged In -->
         {% if request.user == story.author %}
@@ -18,7 +18,7 @@
             <form class="delete-confirm" method="post">
                 {% csrf_token %}
                 <h2>Hi {{ story.author }}!</h2>
-                <h3>Are you sure you want to delete: <strong>"<a href="{% url 'news:story' story.id %}">{{ story.title }}</a>"?</strong></h3>
+                <h3>Are you sure you want to delete the story: <strong>"<a href="{% url 'news:story' story.id %}">{{ story.title }}</a>"?</strong></h3>
 
                 <!-- Buttons Block -->
                 <input type="submit" value="Confirm" class="submit_button">
@@ -27,8 +27,10 @@
         {% else %}
             
             <!-- Load if Vistor / Not Logged In -->
-            <meta http-equiv="refresh" content="0; URL={% url 'news:story' story.id %}" />
+            <!-- <meta http-equiv="refresh" content="0; URL={% url 'news:story' story.id %}" /> -->
+            <p>You don't have permission to delete this story</p>
         {% endif %}
+    {% endif %}
 
 </main>
 {% endblock %}

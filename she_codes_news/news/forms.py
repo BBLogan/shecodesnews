@@ -7,22 +7,15 @@ from .models import NewsStory, Comment
 class StoryForm(ModelForm):
     class Meta: 
         model = NewsStory
-        fields = ['pub_date', 'title', 'image_field', 'content', 'author']
+        fields = ['title', 'image', 'content']
         labels = {
             'title': ('Story Title'),
-            'pub_date': ('Date Published'),
-            'image_field': ('Image URL'),
+            'image': ('Image URL'),
             'content': ('Write a Story'),
-            'author': ('Written By')
         }
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-controls'}),
-            'pub_date': forms.DateTimeInput(format=('%d/%m/%Y %H:%M'), attrs={
-                    'class':'form-control',
-                    'placeholder':'Select a date',
-                    'type':'datetime-local', 
-                    }),
-            'image_field':forms.URLInput(attrs={'class':'form-control'},),
+            'image':forms.URLInput(attrs={'class':'form-control'}),
         }
 
 # Comment Block

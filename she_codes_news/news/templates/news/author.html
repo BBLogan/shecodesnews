@@ -15,7 +15,7 @@
     <div id="latest-stories">
 
             {% for story in author.newsstory_set.all %}
-                {% include './storyCard.html' with story=story postion=forloop.counter %}
+                {% include './storyCard.html' with story=story position=forloop.counter %}
             {% endfor %}
         
     </div>

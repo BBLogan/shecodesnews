@@ -4,7 +4,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -23,7 +23,7 @@
 
     {% else %}
         <!-- Load only for Visitors / Not Logged In -->
-        <img id="doggo_img_else" alt="dog holding newspaper in its mouth" src="{static 'news/images/doggoimg.png' %}" />
+        <img id="doggo_img_else" alt="dog holding newspaper in its mouth" src="{% static 'news/images/doggoimg.png' %}" />
         <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
     {% endif %}
 
@@ -36,4 +36,4 @@
 [ ] Part 1: Style the form for adding new stories
 [ ] Part 1: Add a field to the NewStory model for an image url & use this image rather than the default images provided by the starter code
 [ ] Part 2: Show / Hide the relevant information & buttons based on whether a user is logged in or out
-[ ] Part 2: Enable / Disbale the relevant features based on whether the user is logged in or out -->
+[ ] Part 2: Enable / Disable the relevant features based on whether the user is logged in or out -->

@@ -19,7 +19,7 @@ class NewsStory(models.Model):
         help_text="Enter the title of the news story")
     pub_date = models.DateTimeField()
     content = models.TextField()
-    image_field = models.URLField(null=True, blank=True)
+    image = models.URLField(null=True, blank=True)
 
     # display story title in admin portal in a list
     def __str__(self):

@@ -9,13 +9,16 @@
 <!-- Head Block  -->
     <head>
         <meta charset="utf-8">
-        <title>She Codes News</title>
-        <meta name="description" content="">
-        <!-- <meta name="author" content="Hayley van Waas"> -->
-        <meta name="author" content="YOUR NAME HERE">
+        <title>News Cha Cha Cha</title>
+        <meta name="description" content="News Story">
+        {% if user.is_authenticated %}
+            <meta name="author" content="{{ user.username }}">
+        {% else %}
+            <meta name="author" content="Guest">
+        {% endif %}
         <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-        {% block stylesheet %} {% endblock %}
+            {% block stylesheet %} {% endblock %}
     </head>
 
     <body>
@@ -23,7 +26,7 @@
         <header>
             <div id="header-text">
                 <a id="header-link" href="{% url 'news:index' %}">
-                    <h1>She {Codes} News</h1>
+                    <h1>News Cha Cha Cha</h1>
                 </a>
             </div>
             <!-- Navigation Block  -->

@@ -1,3 +1,16 @@
+1 [ ] Find the font(s) i want to use on the site
+2 [ ] Deploy font string i.e. "https://fonts.googleapis.com/css?family=Manjari&display=swap" across all CSS & HTML pages as needed
+3 [ ] Find icons / decorative icons set to use - look at portfolio assignment 
+4 [ ] Find any images & lorum ipsem to use in the stories
+5 [ ] Double check the following views are active / working correctly: Explore, editStory, deleteStory, deleteStoryDone in the urls.py file
+6 [ ] Double check urls.py still needs the demo code relating to authors
+7 [ ] Double check if need (or not) the Author attributes in the news > forms.py file - suspect don't but look through code to see if anything relating to Author is still there
+8 [ ] Move allStories code block from news > templates > index.html to exploreStories page?
+9 [ ] on exploreStories and index check the Hero block code and write new story code block
+10 [ ] News > Templates > editStory - clean up any additional code -> remove anything struck out to keep it clean BUT DOUBLE CHECK YOU DON'T NEED THE CODE PRIOR TO DELETING
+11 [ ] At the bottom of each file check if &/ what part of the Assignment checklist it satisfies - add it to each file
+12 [ ] As per #11 - double check the editStory.html for the Assignment part it satisfies
+
 ** DOUBLE CHECK ALL IMAGES AND IMAGE LINKS! **
 
 

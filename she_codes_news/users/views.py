@@ -1,9 +1,10 @@
-from django.urls import reverse_lazy, path, include
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.views import generic
 from .models import CustomUser
-from .forms import CustomUserCreationForm
-from news.models import NewsStory
+from users.forms import CustomUserCreationForm, PasswordChangeForm
+from news.models import NewsStory, Comment
 from django.shortcuts import render, redirect
 from django.contrib.auth import views as auth_views
 
@@ -20,11 +21,12 @@ class AccountView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_stories'] = NewsStory.objects.filter(author=self.kwargs['pk'])
+        context['user_stories'] = NewsStory.objects.filter(author=self.request.user).order_by('-pub_date')
+        context['user_comments'] = Comment.objects.filter(author=self.request.user).order_by('-date')
         return context
 
 def ChangePasswordDoneView(request):
-    return render(request, 'users/changePassword_done.html')
+    return render(request, 'users/changePassword_done.html', {})
 
 def ChangePasswordView(request):
     if request.method == 'POST':
@@ -32,7 +34,7 @@ def ChangePasswordView(request):
         if form.is_valid():
             form.save()
             return redirect('users:changePassword_done')
-    else:
+    else: 
         form = auth_views.PasswordChangeForm(request.user)
     return render(request, 'users/changePassword.html', {'form': form})
 
