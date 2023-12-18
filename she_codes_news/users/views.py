@@ -1,11 +1,10 @@
-from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.views import generic
 from .models import CustomUser
-from users.forms import CustomUserCreationForm, PasswordChangeForm
+from users.forms import CustomUserCreationForm
 from news.models import NewsStory, Comment
-from django.shortcuts import render, redirect
+# from django.shortcuts import render, redirect
 from django.contrib.auth import views as auth_views
 
 
@@ -24,19 +23,6 @@ class AccountView(generic.DetailView):
         context['user_stories'] = NewsStory.objects.filter(author=self.request.user).order_by('-pub_date')
         context['user_comments'] = Comment.objects.filter(author=self.request.user).order_by('-date')
         return context
-
-def ChangePasswordDoneView(request):
-    return render(request, 'users/changePassword_done.html', {})
-
-def ChangePasswordView(request):
-    if request.method == 'POST':
-        form = auth_views.PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('users:changePassword_done')
-    else: 
-        form = auth_views.PasswordChangeForm(request.user)
-    return render(request, 'users/changePassword.html', {'form': form})
 
 # In Django generics, use:
 # - generic.ListView for displaying a list of items (e.g., a list of news stories)
