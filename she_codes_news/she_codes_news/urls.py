@@ -1,4 +1,5 @@
 # she_codes_news/urls.py
+# Setting up News Step 6: add the URLs for our news app
 """she_codes_news URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
