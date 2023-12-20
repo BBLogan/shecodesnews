@@ -14,6 +14,7 @@ from django.views.generic import DeleteView
 # Index News Block
 class IndexView(generic.ListView):
     template_name = 'news/index.html'
+    context_object_name = "all_stories"
 
     def get_queryset(self):
         '''

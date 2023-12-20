@@ -3,22 +3,22 @@
 <!-- User = visitor with an account & who's logged into the site -->
 
 {% load static %}
-<!doctype html>
-<html lang="en">
+<!-- <!doctype html> -->
+<!-- <html lang="en"> -->
 
 <!-- Head Block  -->
     <head>
         <meta charset="utf-8">
         <title>News Cha Cha Cha</title>
         <meta name="description" content="News Story">
-        {% if user.is_authenticated %}
+        <!-- {% if user.is_authenticated %} -->
             <meta name="author" content="{{ user.username }}">
-        {% else %}
+        <!-- {% else %}
             <meta name="author" content="Guest">
-        {% endif %}
+        {% endif %} -->
         <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-            {% block stylesheet %} {% endblock %}
+        {% block stylesheet %} {% endblock %}
     </head>
 
     <body>
@@ -36,7 +36,7 @@
         <!-- Extending Globally -->
         {% block content %} {% endblock %}
     </body>
-</html>
+<!-- </html> -->
 
 
 <!-- Assignemnt Notes -->

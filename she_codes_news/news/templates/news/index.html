@@ -3,31 +3,33 @@
 
 {% extends "base.html" %}
 {% load static %}
+
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
 {% endblock %}
-
+<!-- 
 <br>
-<main>
+<main> -->
 
     <!-- Hero Block -->
-    <div class="hero">
+    <!-- <div class="hero">
         <h2>Trending Stories</h2>
-        
+         -->
         <!-- Buttons Block -->
-        <div class="hero-buttons">
-            {% if request.user.is_authenticated %}
+        <!-- <div class="hero-buttons">
+            {% if request.user.is_authenticated %} -->
                 <!-- Load for Users / Logged In -->
-                <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
-            {% else %}
+                <!-- <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
+            {% else %} -->
                 <!-- Load only for Visitors / Not Logged In -->
-                <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
+                <!-- <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
             {% endif %}
             <button><a href="{% url 'news:allStories' %}">Explore All Stories</a></button>
         </div>
-    </div>
+    </div> -->
 
     <!-- Latest Stories Block -->
+{% block content %}
     <h2>Latest News</h2>
     <div id="latest-stories">
         {% if latest_stories %}
@@ -35,11 +37,21 @@
                 {% include "./storyCard.html" with story=story position=forloop.counter %}
             {% endfor %}
         {% else %}
-            <p>No stories are available.</p>
+            <p>No stories are available</p>
         {% endif %}
     </div>
 
-</main>
+    <div id="all-stories">
+        {% if latest_stories %}
+            {% for story in all_stories %}
+                <!-- <p>{{ story.title }}</p> -->
+                {% include "./storyCard.html" with story=story %}
+            {% endfor %}
+        {% else %}
+            <p>No stories are available</p>
+        {% endif %}
+    </div>
+{% endblock %}
 
 
     <!-- All Stories Block move to Explore Page?-->
