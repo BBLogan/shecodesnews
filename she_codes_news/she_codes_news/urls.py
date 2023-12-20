@@ -14,10 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # News Setup Step 6: adding urls for the news app
+# Users Setup Step 7: add the users app URLs to the project
+
+# she_codes_news/urls.py
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
     path('news/', include('news.urls')),
     path('admin/', admin.site.urls),
+    path('users/', include('django.contrib.auth.urls')),
 ]

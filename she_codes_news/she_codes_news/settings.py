@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 # News Setup Step 9: complete the templates
+# Users Setup Step 2: register the new app
+
 from pathlib import Path
 import os
 
@@ -39,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,7 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 # News Setup Step 9: complete the templates
 STATIC_URL = '/static/'
-
-STATSICFILES_DIRS = (os.path.join(BASE_DIR, 'static')),
+STATSICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
