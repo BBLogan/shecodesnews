@@ -1,5 +1,3 @@
-# she_codes_news/urls.py
-# Setting up News Step 6: add the URLs for our news app
 """she_codes_news URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,12 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# News Setup Step 6: adding urls for the news app
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('news/', include ('news.urls')),
+    path('news/', include('news.urls')),
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
-    path('users/', include('django.contrib.auth.urls')),
 ]

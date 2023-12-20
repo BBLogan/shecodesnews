@@ -1,81 +1,22 @@
+<!-- News Setup Step 12: adding a new view -->
 <!-- news/templates/news/story.html -->
-<!-- Vistor = individual browsing website but with no account &/ not logged in -->
-<!-- User = visitor with an account & who's logged into the site -->
 
 {% extends "base.html" %}
 {% load static %}
-{% block stylessheets %}
+
+{% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
 {% endblock %}
 
 {% block content %}
-<main>
 
-    <!--- Story Block -->    
-    <div id="story-wrapper">
-        <h2>{{ story.title }}</h2>
-        <h4>{{ story.author }}</h4>
-
-        <div id="story-content">
-            {% if story.image %}
-            <img src="{{ story.image }}"> 
-            {% else %}
-            <img src="{% static '/news/images/placeholder-5.jpg' %}">
-            {% endif %}
-            {{ story.content|linebreaks }}
-        </div>
-
-    <!-- Existing Comments -->
-    <h4>Comments</h4>
-    {% if story.comments.all %}
-    <ul>
-        {% for comment in story.comments.all %}
-            <li>
-                {% if comment.author %}
-                    <a class="author_links" href="{% url 'users:profile' comment.author.id %}"> {{ comment.author.username }}</a> 
-                {% else %}
-                    Anonymous
-                {% endif%}
-                [{{comment.created_at|date:'d M y @ gi a' }}] {{ comment.content}}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <p>No comments to view</p>
-    {% endif %}
-
-    <!-- Add New Comments -->
-    <div id="comment-wrapper">
-        {% if request.user.is_authenticated %}
-        
-        <!-- Load for Logged in Users-->
-        <form method="POST" action="{{ form_action }}">
-            {% csrf_token %}
-            {{ form.as_p }}
-
-                <!-- Comment Submission Button -->
-                <button type="submit">Add Comment</button>
-                {% if request.user == story.author %}
-                <button><a href="{% url 'news:editStory' story.id %}">Edit your Story</a></button>
-                <button><a href="{% url 'news:deleteStory' story.id %}">Delete your Story</a></button>
-            {% else %}
-                
-            <!-- No Loading of buttons for Visitors -->
-                {% endif %}
-        </form>
-                
-            <!-- But Load Login for Visitors to Login -->
-                <button><a href="{% url 'login' %}">Login to add a comment</a></button>
-            {% endif %}
+<div id="story-wrapper">
+    <h2>{{ story.title }}</h2>
+    <h4>{{ story.author }}</h4>
+    <div id="story-content">
+        <img src="{% static '/news/images/placeholder-5.jpg' %}">
+        {{ story.content|linebreaks }}
     </div>
 </div>
 
-</main>
 {% endblock %}
-
-
-<!-- Assignemnt Notes -->
-<!-- This page is part of the news setup and additional features. It satisfies the following:
-[ ] Part 1: Submit comments
-[ ] Part 1: View comments
-[ ] Part 2: Show / Hide the relevant information and buttons based on whether the user is logged in/out
-[ ] Part 2: Enable / Disable the relevant features based on whether the use is logged in/out

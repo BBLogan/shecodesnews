@@ -1,44 +1,29 @@
-<!-- templates/base.html -->
-<!-- Vistor = individual browsing website but with no account &/ not logged in -->
-<!-- User = visitor with an account & who's logged into the site -->
-
+<!-- News Setup Step 9: complete the templates -->
 {% load static %}
-<!doctype html>
-<html lang="en">
+<!-- <!doctype html> -->
 
-<!-- Head Block  -->
+<!-- <html lang="en"> -->
     <head>
         <meta charset="utf-8">
-        <title>News Cha Cha Cha</title>
-        <meta name="description" content="News Story">
-        {% if user.is_authenticated %}
-            <meta name="author" content="{{ user.username }}">
-        {% else %}
-            <meta name="author" content="Guest">
-        {% endif %}
+        <title>She Codes News</title>
+        <meta name="description" content="">
+        <meta name="author" content="YOUR NAME HERE">
         <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-            {% block stylesheet %} {% endblock %}
+        {% block stylesheets %} {% endblock %}
     </head>
 
     <body>
-        <!-- Header Block  -->
         <header>
             <div id="header-text">
                 <a id="header-link" href="{% url 'news:index' %}">
-                    <h1>News Cha Cha Cha</h1>
+                    <h1>She {Codes} News</h1>
                 </a>
             </div>
-            <!-- Navigation Block  -->
-            {% include './nav.html' %}
+            <!-- include nav here -->
         </header>
 
-        <!-- Extending Globally -->
-        {% block content %} {% endblock %}
+        <!-- content blocks here -->
+        {% block content %}{% endblock %}
     </body>
-</html>
-
-
-<!-- Assignemnt Notes -->
-<!-- This page is part of the news setup and additional features. It satisfies the following:
-[ ] Part 1: 
+<!-- </html> -->

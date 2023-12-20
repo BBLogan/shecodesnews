@@ -1,37 +1,21 @@
-<!-- Vistor = individual browsing website but with no account &/ not logged in -->
-<!-- User = visitor with an account & who's logged into the site -->
+<!-- News Setup Step 9: complete the templates -->
+<!-- News Setup Step 10: apply more stlyes -->
+<!-- News Setup Step 11: insert some story card templates -->
 
 {% extends "base.html" %}
 {% load static %}
+
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
 {% endblock %}
 
-<br>
-<main>
-
-    <!-- Hero Block -->
-    <div class="hero">
-        <h2>Trending Stories</h2>
-        
-        <!-- Buttons Block -->
-        <div class="hero-buttons">
-            {% if request.user.is_authenticated %}
-                <!-- Load for Users / Logged In -->
-                <button><a href="{% url 'news:newStory' %}">Write New Story</a></button>
-            {% else %}
-                <!-- Load only for Visitors / Not Logged In -->
-                <button><a href="{% url 'login' %}">Login to Write a New Story</a></button>
-            {% endif %}
-            <button><a href="{% url 'news:allStories' %}">Explore All Stories</a></button>
-        </div>
-    </div>
-
-    <!-- Latest Stories Block -->
+{% block content %}
     <h2>Latest News</h2>
+
     <div id="latest-stories">
         {% if latest_stories %}
             {% for story in latest_stories %}
+                <!-- <p>{{ story.title }}</p> -->
                 {% include "./storyCard.html" with story=story position=forloop.counter %}
             {% endfor %}
         {% else %}
@@ -39,22 +23,14 @@
         {% endif %}
     </div>
 
-</main>
-
-
-    <!-- All Stories Block move to Explore Page?-->
-    <!-- <div id="all-stories">
+    <div id="all-stories">
         {% if latest_stories %}
             {% for story in all_stories %}
+                <!-- <p>{{ story.title }}</p> -->
                 {% include "./storyCard.html" with story=story %}
             {% endfor %}
         {% else %}
             <p>No stories are available.</p>
         {% endif %}
-    </div> -->
-
-<!-- Assignemnt Notes -->
-<!-- This page is part of the news setup and satisfies the following:
-[ ] Part 1: Order the stories by date
-[ ] Part 2: Show / Hide the relevant information & buttons based on whether a user is logged in or out
-[ ] Part 2: Enable / Disbale the relevant features based on whether the user is logged in or out -->
+    </div>
+{% endblock %}
