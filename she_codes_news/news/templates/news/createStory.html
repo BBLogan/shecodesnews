@@ -1,0 +1,13 @@
+<!-- Forms Setup Step 4: fill in the template -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ forms.as_p }}
+        <input type="submit" value="submit">
+    </form>
+
+    {% endblock %}
