@@ -131,8 +131,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField',
 
 # Setting up Users Step 7: add a log in / out redirect 
-LOGIN_REDIRECT_URL = 'news:index'
+LOGIN_REDIRECT_URL = 'news:index',
 LOGOUT_REDIRECT_URL = 'news:index'
