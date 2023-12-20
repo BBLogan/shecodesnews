@@ -1,3 +1,5 @@
+# News Setup Step 12: adding a new view
+
 from django.views import generic
 from .models import NewsStory
 
